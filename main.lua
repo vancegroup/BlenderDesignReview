@@ -12,6 +12,16 @@ local function CenterTransformAtPosition(xform, pos)
 	}
 end
 
+kitchen = Transform{
+	Transform{
+		scale = .02,
+		Model[[models/kitchen.ive]],
+		orientation = AngleAxis(Degrees(180),Axis{0,0,1})
+	},
+	orientation = AngleAxis(Degrees(-90),Axis{0,1,0})
+}
+RelativeTo.World:addChild(kitchen)
+
 blade = Transform{
 	Model[[models/Blade.ive]]
 }
@@ -50,8 +60,11 @@ top = Transform{
 
 
 all_models = Transform{
-	scale = .005,
-	blade, blendingstand,cap,feet,holder,lid,measurements,top,
+	position = {4.72,.85,-3},
+	Transform{
+		scale = .001,
+		blade, blendingstand,cap,feet,holder,lid,measurements,top,
+	}
 }
 
 all_models_centered = CenterTransformAtPosition(all_models,{1,1,0})
@@ -65,4 +78,4 @@ RelativeTo.World:addChild(all_models_centered)
 	-- nextBtn = gadget.DigitalInterface("WMButtonRight"),
 	-- prevBtn = gadget.DigitalInterface("WMButtonLeft"),
 	-- resetBtn = gadget.DigitalInterface("WMButton1"),
--- }
+-- } 
