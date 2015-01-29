@@ -1,15 +1,23 @@
 require "AddAppDirectory"
+require "TransparentGroup"
 AddAppDirectory()
 
 runfile[[simpleLights.lua]]
 runfile[[SimSparta/SimSparta.lua]]
 
-local function CenterTransformAtPosition(xform, pos)
-	local bound = xform:getBound()
-	return Transform{
-		position = -bound:center() + Vec(unpack(pos)),
-		xform,
-	}
+local function assignButtons(a)
+	if a.metal then
+		print("Loading METaL Buttons")
+		a.dragBtn = gadget.DigitalInterface("WMButtonB")
+		a.nextBtn = gadget.DigitalInterface("WMButtonRight")
+		a.prevBtn = gadget.DigitalInterface("WMButtonLeft")
+		a.resetBtn = gadget.DigitalInterface("WMButton1")
+	else
+		print("Loading Workstation Buttons")
+		a.nextBtn = gadget.DigitalInterface("VJButton0")
+		a.dragBtn = gadget.DigitalInterface("VJButton2")
+		a.prevBtn = gadget.DigitalInterface("VJButton1")
+	end
 end
 
 kitchen = Transform{
@@ -22,60 +30,92 @@ kitchen = Transform{
 }
 RelativeTo.World:addChild(kitchen)
 
+global_pos = {2.59,.733,-2}
+global_scale = .001
+
 blade = Transform{
-	Model[[models/Blade.ive]]
-}
-
-blendingstand = Transform{
-	Model[[models/BlendingStand.ive]]
-}
-
-glass = Transform{
-	Model[[models/glass.ive]]
-}
-
-cap = Transform{
-	Model[[models/cap.ive]]
-}
-
-feet = Transform{
-	Model[[models/Feet.ive]]
-}
-
-holder = Transform{
-	Model[[models/Holder.ive]]
-}
-
-lid = Transform{
-	Model[[models/lid.ive]]
-}
-
-measurements = Transform{
-	Model[[models/Measurements.ive]]
-}
-
-top = Transform{
-	Model[[models/Top.jt.ive]]
-}
-
-
-all_models = Transform{
-	position = {4.72,.85,-3},
+	position = global_pos,
 	Transform{
-		scale = .001,
-		blade, blendingstand,cap,feet,holder,lid,measurements,top,
+		scale = global_scale,
+		Model[[models/blade.ive]]
 	}
 }
 
-all_models_centered = CenterTransformAtPosition(all_models,{1,1,0})
+blendingstand = Transform{
+	position = global_pos,
+	Transform{
+		scale = global_scale,
+		Model[[models/BlendingStand.ive]]
+	}
+}
 
-RelativeTo.World:addChild(all_models_centered)
+glass = Transform{
+	position = global_pos,
+	Transform{
+		scale = global_scale,
+		Model[[models/glass.ive]]
+	}
+}
 
--- SimSparta{
-	-- blade, blendingstand,cap,feet,holder,lid,measurements,top,
-	-- cycleThroughParts = true,
-	-- dragBtn = gadget.DigitalInterface("WMButtonB"),
-	-- nextBtn = gadget.DigitalInterface("WMButtonRight"),
-	-- prevBtn = gadget.DigitalInterface("WMButtonLeft"),
-	-- resetBtn = gadget.DigitalInterface("WMButton1"),
--- } 
+cap = Transform{
+	position = global_pos,
+	Transform{
+		scale = global_scale,
+		Model[[models/cap.ive]]
+	}
+}
+
+feet = Transform{
+	position = global_pos,
+	Transform{
+		scale = global_scale,
+		Model[[models/Feet.ive]]
+	}
+}
+
+holder = Transform{
+	position = global_pos,
+	Transform{
+		scale = global_scale,
+		TransparentGroup{
+			Model[[models/Holder2.ive]],
+			alpha = .2
+		}
+	}
+}
+
+lid = Transform{
+	position = global_pos,
+	Transform{
+		scale = global_scale,
+		Model[[models/lid.ive]]
+	}
+}
+
+measurements = Transform{
+	position = global_pos,
+	Transform{
+		scale = global_scale,
+		Model[[models/Measurements.ive]]
+	}
+}
+
+top = Transform{
+	position = global_pos,
+	Transform{
+		scale = global_scale,
+		Model[[models/Top.jt.ive]]
+	}
+}
+
+location = {metal=false}
+assignButtons(location)
+
+SimSparta{
+	blade, blendingstand,cap,feet,holder,lid,measurements,top,
+	cycleThroughParts = true,
+	dragBtn = location.dragBtn,
+	nextBtn = location.nextBtn,
+	prevBtn = location.prevBtn,
+	resetBtn = location.resetBtn,
+} 
