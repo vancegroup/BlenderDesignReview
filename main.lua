@@ -30,7 +30,7 @@ kitchen = Transform{
 }
 RelativeTo.World:addChild(kitchen)
 
-global_pos = {2.59,.733,-2}
+global_pos = {2.1,.733,-2.55}
 global_scale = .001
 
 blade = Transform{
@@ -45,30 +45,7 @@ blendingstand = Transform{
 	position = global_pos,
 	Transform{
 		scale = global_scale,
-		Model[[models/BlendingStand.ive]]
-	}
-}
-
-glass = Transform{
-	position = global_pos,
-	Transform{
-		scale = global_scale,
-		Model[[models/glass.ive]]
-	}
-}
-
-cap = Transform{
-	position = global_pos,
-	Transform{
-		scale = global_scale,
-		Model[[models/cap.ive]]
-	}
-}
-
-feet = Transform{
-	position = global_pos,
-	Transform{
-		scale = global_scale,
+		Model[[models/BlendingStand.ive]],
 		Model[[models/Feet.ive]]
 	}
 }
@@ -77,26 +54,11 @@ holder = Transform{
 	position = global_pos,
 	Transform{
 		scale = global_scale,
+		Model[[models/Measurements.ive]],
 		TransparentGroup{
 			Model[[models/Holder2.ive]],
 			alpha = .2
 		}
-	}
-}
-
-lid = Transform{
-	position = global_pos,
-	Transform{
-		scale = global_scale,
-		Model[[models/lid.ive]]
-	}
-}
-
-measurements = Transform{
-	position = global_pos,
-	Transform{
-		scale = global_scale,
-		Model[[models/Measurements.ive]]
 	}
 }
 
@@ -112,7 +74,7 @@ location = {metal=false}
 assignButtons(location)
 
 SimSparta{
-	blade, blendingstand,cap,feet,holder,lid,measurements,top,
+	top, blade, blendingstand,holder,
 	cycleThroughParts = true,
 	dragBtn = location.dragBtn,
 	nextBtn = location.nextBtn,
