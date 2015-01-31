@@ -70,7 +70,7 @@ top = Transform{
 	}
 }
 
-location = {metal=false}
+location = {metal=true}
 assignButtons(location)
 
 SimSparta{
