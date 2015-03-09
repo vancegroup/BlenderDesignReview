@@ -24,6 +24,19 @@ function doLight2()
 	l2:setPosition(osg.Vec4(1.5, .1, -2, 1.0))
 end
 
+-- function doLight3()
+	-- l4 = osg.Light()
+	-- l4:setLightNum(2)
+	-- l4:setAmbient(osg.Vec4(.05, .05, 0.05, 0.5))
+	-- ls4 = osg.LightSource()
+	-- ls4:setLight(l4)
+	-- ls4:setLocalStateSetModes(osg.StateAttribute.Values.ON)
+	-- ss:setAssociatedModes(l4, osg.StateAttribute.Values.ON)
+	-- RelativeTo.Room:addChild(ls4)
+	-- l4:setPosition(osg.Vec4(2.0,.733,-2.55, 1.0))
+-- end
+
 doLight1()
 doLight2()
+-- doLight3()
 print("simpleLights added to scene")
